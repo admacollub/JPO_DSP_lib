@@ -67,10 +67,8 @@ namespace af{
                 m_sampling_freq = sampling_freq;
                 return true;
             }
-            else
-            {
-                reutrn false;
-            }
+            
+            return false;
         }
 
         /**
@@ -105,6 +103,6 @@ namespace af{
         {
             return m_filter_name;
         }
-    }
+    };
 
 };
