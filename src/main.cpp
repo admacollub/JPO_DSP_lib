@@ -1,20 +1,65 @@
 #include "headers/base_filter.hpp"
 #include "headers/filter_type.hpp"
+#include "headers/FIRs.hpp"
 #include <iostream>
 
 int main()
 {
-    af::FIR<double> MovingAvergae(44100.0, "Fisrt Filter", {0,2,0,0,10,0,0,0});
-    std::vector<double> samples {0,1,0,1,0,1,0,1,0,1,0,1,0,1,0};
-    std::vector<double> outputs;
+    af::FIR<double> Fir_filter(4100.0, "First Filter", {0.05,0.1,0.35,0.35,0.1,0.05});
+  //  std::vector<double> samples {1,1,1,1,-1,-1,-1,-1,1,1,1,1,-1,-1,-1,-1,1,1,1,1,-1,-1,-1,-1,1,1,1,1,-1,-1,-1,-1,1,1,1,1,-1,-1,-1,-1};
 
-    for(double s : samples) {
+    double fs = 44100.0;
+    double f_square = 500.0; 
+    std::vector<double> samples;
 
-        double result = MovingAvergae.filter(s);
-        outputs.push_back(result);
-
-        std::cout << "In: " << s << " \t-> Out: " << result << std::endl;
+    for (int n = 0; n < 1000; n++) {
+        double t = n / fs;
+        double val = (std::sin(2.0 * M_PI * f_square * t) >= 0) ? 1.0 : -1.0;
+        samples.push_back(val);
     }
+
+    std::cout << "Input samples for filters: [";
+    for(double s : samples){
+        std::cout << s << " ";
+    }
+    std::cout << "]" << std::endl;
+    std::cout << std::endl;
+    std::cout << "Output from FIR: {";
+    for(double s : samples) {
+        double result1 = Fir_filter.filter(s);
+
+        std::cout << result1 << ", ";
+    }
+    std::cout << "}" << std::endl;
+    std::cout << std::endl;
+
+    
+    af::IIR<double> Iir_filter(4100.0, "Second Filter", {0.1, 0.6, 0.1}, {-0.2});
+
+    std::cout << "Output from IIR: {";
+    for(double s : samples) {
+        double result2 = Iir_filter.filter(s);
+
+
+        std::cout << result2 << ", ";
+    }
+    std::cout << "}" << std::endl;
+
+    af::Lowpass<double> LP_filter(44100.0, "Third Filter", 60 , 500);
+    std::vector<double> coeffs = LP_filter.get_coeff();
+    std::cout << "LPF coeffitients: [ ";
+    for( double c : coeffs) {
+        std::cout << c << " ";
+    }
+    std::cout << "]" << std::endl;
+
+    std::cout << "Output from LPF [ ";
+    for(double s : samples){
+        double result3 = LP_filter.filter(s);
+        std::cout << result3 << " ";
+    }
+    std::cout << " ]" << std::endl;
+
 
     return 0;
 }
