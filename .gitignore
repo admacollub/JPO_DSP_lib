@@ -4,4 +4,11 @@ key.pub
 *.pub
 id_rsa
 id_ed25519
+bandpass_demo_FIR
+bandstop_demo_FIR
+cascade_demo
+cheb_highpass_demo
+cheb_lowpass_demo
+highpass_demo_FIR
+lowpass_demo_FIR
 main

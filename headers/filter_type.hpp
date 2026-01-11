@@ -59,6 +59,14 @@ namespace af{
                 return output;
             }
 
+            /**
+            * @brief Method for cloning it's self - used to make cascades
+            */
+            std::unique_ptr<Base_Filter<T>> clone() const override {
+                return std::make_unique<FIR<T>>(*this);
+            }
+
+
     };
 
     template <typename T>
@@ -132,22 +140,22 @@ namespace af{
                 }
 
                 for (size_t i = 0; i < m_coeff_a.size(); i++) {
-                    output -= m_coeff_a[i] * m_past_input[i + 1];
+                    output -= m_coeff_a[i] * m_past_output[i + 1];
                 }
 
                 m_past_output[0] = output;
                 return output;
             }
 
+            /**
+             * @brief Method for cloning it's self - used to make cascades
+             */
+            std::unique_ptr<Base_Filter<T>> clone() const override {
+                return std::make_unique<IIR<T>>(*this);
+            }
+                
 
 
     };
-    /*    template <typename T>
-    class Other : public Base_Filter<T> {
-        private:
-
-        public:
-    };
-    */
 
 }

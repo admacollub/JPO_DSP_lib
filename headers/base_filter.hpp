@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <cmath>
+#include <memory>
 
 namespace af{
 
@@ -26,6 +27,11 @@ namespace af{
          * @tparam T is the type of datam that will be filtered
          */
         virtual T filter(T input) = 0;
+
+        /**
+         * @brief Virtual method for cloning filters - used to make safe cascades of filters.
+         */
+        virtual std::unique_ptr<Base_Filter<T>> clone() const = 0;
 
         /**
          * @brief Virtual method for reseting the state of filter.
