@@ -22,7 +22,7 @@ int main()
     std::cout << "]" << std::endl;
     std::cout << std::endl;
  
-    af::Lowpass<double> LP_filter(44100.0, "Third Filter", 60 , 500);
+    af::Lowpass<double> LP_filter(44100.0, "Filter", 60 , 500);
     std::vector<double> coeffs = LP_filter.get_coeff();
     std::cout << "LPF coeffitients: [ ";
     for( double c : coeffs) {

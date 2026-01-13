@@ -13,7 +13,7 @@ namespace af{
     /**
      *@brief Abstract base class for all filters and cascades of filters.
      ** Class holds parameters: sampling freqency (double) and name of the filter/cascade (string).
-     *@tparam  T is the type of data, which the filters will operate on.
+     *@tparam  T is numerical type of data.
      */
     template <typename T>
     class Base_Filter {
@@ -66,8 +66,9 @@ namespace af{
         Base_Filter(double sampling_freq) : Base_Filter(sampling_freq, "Filter") {}
 
         /**
-         * @brief Setter of samplig frequency parameter in base filter class. Returns true if setting suuccesful, otherwise false.
+         * @brief Setter of samplig frequency parameter in base filter class. 
          * @param sampling_freq Double sampling frequency of filter or cascade of filters.
+         * @return Returns true if setting suuccesful, otherwise false.
          */
         bool set_sampling_freq(double sampling_freq)
         {
@@ -83,6 +84,7 @@ namespace af{
         /**
          * @brief Setter of filter or cascade name. Returns true if succesful, otherwise false.
          * @param filter_name String input of filter name.
+         * @return Returns true if setting suuccesful, otherwise false.
          */
         bool set_filter_name(std::string filter_name)
         {
@@ -99,6 +101,7 @@ namespace af{
 
         /**
          * @brief Getter of sampling frequency of base structure. Returns double.
+         * @return Returns double value of filter's sampling frequency.
          */
         double get_sampling_freq() const
         {
@@ -107,6 +110,7 @@ namespace af{
 
         /**
          * @brief Getter of base class filter name. Returns string.
+         * @return Returns string filter's name.
          */
         std::string get_filter_name() const
         {
